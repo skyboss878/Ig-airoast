@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: ig-roast-bot
+    env: python
+    buildCommand: ""
+    startCommand: gunicorn app:app
+    envVars:
+      - key: TELEGRAM_TOKEN
+        sync: false
+      - key: PAYPAL_WEBHOOK_SECRET
+        sync: false
+      - key: IG_USERNAME
+        sync: false
+      - key: IG_PASSWORD
+        sync: false
