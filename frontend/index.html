@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Puter Roast Generator</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <style>
+    body { background: black; color: white; font-family: sans-serif; text-align: center; padding: 2em; }
+    img { max-width: 300px; margin: 20px auto; display: block; }
+  </style>
+</head>
+<body>
+<div style="text-align: center; margin-top: 20px;">
+  <img src="roast.png" alt="Get Roasted by AI" style="width: 300px; border-radius: 12px;">
+</div>
+  <h1>🔥 Get Roasted by Puter</h1>
+  <img src="roast.jpg" alt="Roast Image" />
+  <p>Subscribe to unlock brutal AI roasts. Delivered with no mercy.</p>
+
+  <div id="paypal-button-container"></div>
+
+  <input type="email" id="email" placeholder="Enter your PayPal email"/>
+  <button onclick="checkAccess()">Get Roasted</button>
+
+  <script src="puter.js"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=AY7XTiApimbddCYT4m-UpFNnbxctOl_oIHJIt00dSl3Z0bzY-Ktr1zOzajrNkc-I1czTbg-gcscGcG24&vault=true&intent=subscription"></script>
+  <script>
+    paypal.Buttons({
+      style: {
+        shape: 'rect',
+        color: 'gold',
+        layout: 'vertical',
+        label: 'subscribe'
+      },
+      createSubscription: function(data, actions) {
+        return actions.subscription.create({ plan_id: 'P-1VG49326K8330980LNBJ6TSY' });
+      },
+      onApprove: function(data, actions) {
+        alert("✅ Subscribed! Enter your email to get roasted.");
+      }
+    }).render('#paypal-button-container');
+
+    function checkAccess() {
+      const email = document.getElementById("email").value;
+      fetch("/check-subscription", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.access === "granted") {
+          startRoast();
+        } else {
+          alert("❌ You're not subscribed. Click above to unlock roasts.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
+
+
+
