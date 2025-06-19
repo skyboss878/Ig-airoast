@@ -70,6 +70,7 @@ def auto_post_to_instagram():
 threading.Thread(target=auto_post_to_instagram, daemon=True).start()
 
 # Start Flask server
-if __name__ == '__main__':
-    app.run(debug=True)
-
+if __name__ == "__main__":
+    import os
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
